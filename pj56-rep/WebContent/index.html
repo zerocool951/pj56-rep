@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>PJ56-rep</title>
+</head>
+<body>
+<h1>and so it beginsss</h1>
+
+<form action="">
+
+<script type="text/javascript">
+ function getsomething() {
+  var serverURL = "http://localhost:7474/db/data"
+  $.ajax({
+    type:"POST",
+    url: serverURL + "/cypher",
+    accepts: "application/json",
+    dataType: "json",
+    contentType:"application/json",
+    headers: { 
+      "X-Stream": "true"    
+    },
+    data:{ "query" : "MATCH n return n;"  },
+    success: function(data, textStatus, jqXHR){
+     alert(textStatus);
+    },
+    error: function(jqXHR, textStatus, errorThrown){
+     alert("fuck yoi" + errorThrown);
+     console.log(textStatus);
+    }
+  });//end of ajax
+  } //end of getSomething()
+
+  getsomething();
+ 
+  </script>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("button").click(function(){
+        return "" + getsomething();
+    });
+    $("button").click(function(event){
+        $("p").html(event.result);
+    });  
+});
+</script>
+</head>
+<body>
+
+<button>Click me to display event.result</button>
+
+<p>This is a paragraph.</p>
+  
+<textarea rows="" cols=""></textarea>
+</form>
+
+
+</body>
+</html>

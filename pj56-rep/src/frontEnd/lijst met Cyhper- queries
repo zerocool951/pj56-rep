@@ -1,0 +1,53 @@
+
+//Return products by their type, products are linked by website and ordered by price.
+//By adding more OR p.type it is possible to include more products in the output.
+//By combining both Website and Product location, it is possible to create a link to the actual product.
+//Information returned:
+//- Name
+//- Price
+//- Type
+//- Website
+//- Product location
+
+MATCH (w:Website)<-[:BELONGS_TO]-(p: Product)
+WHERE p.type = 'Solid State Drives'
+OR p.type = 'Harde schijven intern'
+RETURN w, p 
+ORDER BY p.price;
+
+//Return all products with a certain property, i.e. 1000GB capacity or a 36 month warranty.
+//d.type equals the type of property, d.value equals the value said property has to have
+
+MATCH (w:Website)<-[:BELONGS_TO]-(p: Product)-[:HAS_PROPERTY]->(d:Attribute)
+WHERE d.type = 'Capaciteit'
+AND d.value = '1000 GB'
+AND p.type = 'Harde schijven intern'
+RETURN w, p
+ORDER BY p.price;
+
+//Return all product types available on a website, types are ordered alphabetically.
+//Paradigit only.
+
+MATCH (w:Website)<-[:BELONGS_TO]-(p:Product)
+WHERE w.url =~ '(?i).*paradigit.*'
+RETURN p.type
+ORDER BY p.type;
+
+//Return all product types available on a website, types are ordered alphabetically.
+//alternate only.
+
+MATCH (w:Website)<-[:BELONGS_TO]-(p:Product)
+WHERE w.url =~ '(?i).*alternate.*'
+RETURN p.type
+ORDER BY p.type;
+
+//Return all product types + linked website from all websites.
+
+MATCH (w:Website)<-[:BELONGS_TO]-(p:Product)
+RETURN w, p.type
+ORDER BY w.url, p.type;
+
+//To load queries using Junk, load the query as a single line using double quotation marks.
+//Pay attention as to not use double quotation marks within queries, only single ones.
+
+Displaying cypher queries.txt.
