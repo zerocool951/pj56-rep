@@ -3,31 +3,16 @@
  */
 package frontEnd;
 
-import tornado.org.Start;
-import junk.*;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.io.StringReader;
-import java.net.URI;
-import java.net.URISyntaxException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.codehaus.jackson.JsonNode;
-import org.codehaus.jackson.node.JsonNodeFactory;
-import org.neo4j.cypher.internal.compiler.v2_1.perty.printToString;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
+import gatherer.*;
 
 /**
  * @author Zero
@@ -47,33 +32,43 @@ public class WepApp extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String s = req.getParameter("productTypes");
+
+		PrintWriter out = resp.getWriter();
+		out.println("<h1>" + s + "</h1>");
+
+		super.doPost(req, resp);
+	}
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
 
 		String[] s = new String[2];
-		s[0] = "MATCH (p:Product) RETURN DISTINCT p.type ORDER BY p.type ";
+		// s[0] = "MATCH (p:Product) RETURN DISTINCT p.type ORDER BY p.type ";
+
+		s[0] = "producttypes";
 
 		// s[1] = "" ;
 		try {
-			// result.json komt in root van eclispe instalatie
-			String junkoutput = junk.Start.main(s);
-			resp.getWriter().println(junkoutput + "   uitgevoerd");
 
-			JsonReader jsonReader = new JsonReader(new StringReader(junkoutput));
+			ArrayList<String> gOutput = new ArrayList<String>();
 
-			resp.getWriter().println();
-			JsonParser j = new JsonParser();
+			Get get = new Get();
+			gOutput = get.start(s);
+			resp.getWriter().println("<html><head</head><body><form method=\"post\" action=\"dowat\">") ; 
+			resp.getWriter().println("<select id=\"productTypes\" onChange=\"fillProducts()\" size=\"10\" style=\"width: 200px;\">");
 
-			JsonElement jsonElement = j.parse(junkoutput);
-			resp.getWriter().println(junkoutput);
+			for (int i = 0; i < gOutput.size(); i++) {
+				resp.getWriter().println(
+						"<option type=\"submit\">" + gOutput.get(i) + "</option>");
+			}
 
-			JsonObject jsonObject = jsonElement.getAsJsonObject();
-			resp.getWriter().println(jsonElement.toString());
-
-			resp.getWriter().println(jsonObject.toString());
-			
-			
-
+			resp.getWriter().println("</select>");
+			resp.getWriter().println("</html></body></form>") ;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
