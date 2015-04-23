@@ -13,7 +13,10 @@
 <%
 	String[] s = new String[2];
 	//s[0] = "MATCH (p:Product) RETURN DISTINCT p.type ORDER BY p.type ";
-	s[0] = "producttypes" ; 
+	
+	s[0] = "productattributes" ;
+	s[1] = "VX-2 Wired Controller, Gamepad" ;
+	
 	ArrayList<String> gOutput =  new ArrayList<String>() ; 
 	// s[1] = "" ;
 try {
@@ -25,6 +28,9 @@ try {
 	e.printStackTrace();
 }
 %>
+<%= gOutput %> 
+
+
 <%="testing jsp code"%>
 
 
@@ -86,8 +92,9 @@ try {
 <body onload="populate();">
 <form method="post" action="dowat">
 	
-	<select id="productTypes" onChange="fillProducts()" size="10"
+	<select  id="productTypes" onChange="fillProducts()" size="10"
 		style="width: 200px;">
+		<option >
 		<button type="submit" ></option>
 	</select>
 
