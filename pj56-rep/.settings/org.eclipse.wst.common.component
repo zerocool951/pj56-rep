@@ -2,6 +2,9 @@
     <wb-module deploy-name="pj56-rep">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="InformationGatherer(4).jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/C:/Users/Zero/AppData/Roaming/Skype/My Skype Received Files/InformationGatherer(4).jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="pj56-rep"/>
         <property name="java-output-path" value="/pj56-rep/build/classes"/>
     </wb-module>
