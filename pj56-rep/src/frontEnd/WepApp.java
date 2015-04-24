@@ -99,7 +99,7 @@ public class WepApp extends HttpServlet {
 			 */
 
 			if (fac != null) {
-				float TotalPrice = 0;
+				double TotalPrice = 0;
 
 				out.println("<table>");
 				for (int i = 0; i < shoplist.size(); i++) {
@@ -114,7 +114,7 @@ public class WepApp extends HttpServlet {
 					ArrayList<String> lOutput = new ArrayList<String>();
 					lOutput = nosql.start(command);
 					for (String p : pOutput) {
-						TotalPrice = TotalPrice + Float.parseFloat(p);
+						TotalPrice = TotalPrice + Double.parseDouble(p);
 						for (String l : lOutput) {
 							out.println("<tr><td><b>Product : </b>"
 									+ shoplist.get(i)
